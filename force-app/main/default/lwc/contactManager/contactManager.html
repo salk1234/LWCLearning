@@ -1,0 +1,8 @@
+<template>
+    <lightning-card class="slds-p-around_medium" title = "Display Contact">
+        <c-contact-input onshow={showContactEvent}></c-contact-input>
+        <template lwc:if={displayName}>
+            <p class="slds-p-around_medium"><b>Received Contact : {contactName}</b></p>
+        </template>
+    </lightning-card>
+</template>

@@ -1,0 +1,68 @@
+<template>
+    <legend class="slds-form-element__legend slds-form-element__label slds-p-top_small">Add File
+    </legend>
+    <!-- File Upload -->
+    <lightning-file-upload name="fileUploader" onuploadfinished={handleUploadFinished} multiple>
+    </lightning-file-upload>
+    <div class="slds-p-top_small slds-p-bottom_small">
+      <!-- Show first 3 files with more link -->
+							<div class="slds-p-top_medium">
+								<div class="templateText slds-p-bottom_xx-small"><font style="color:red;">* </font>Select Template from Search Results</div>
+								<table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped tableborderaround">
+									<thead>
+										<tr class="slds-line-height_reset">
+											<th class="header-background" scope="col"></th>
+											<th class="header-background" scope="col" data-id={fileName.value} style="width: 35%">
+												Template Name
+											</th>
+											<th class="header-background" scope="col" style="width: 17%">
+												Delete
+`                     </th>
+										</tr>
+									</thead>
+									<tbody>
+										<template for:each={uploadedAllFiles} for:item="fileName" for:index="index">
+											<tr class="slds-hint-parent validate" key={fileName.Id}>
+												<td>
+													<div class="slds-truncate">
+														<div>{fileName.value}</div>
+													</div>
+												</td>
+												<td>
+													<div class="slds-truncate">
+														<div><a href="javascript:void(0)" data-id={fileName.key} onclick={removeFile}>Remove</a></div>
+													</div>
+												</td>
+											</tr>
+										</template>
+									</tbody>
+								</table>
+							</div>
+      
+      <div if:true={isMultipleFilePresent}>
+      <template for:each={uploadedBaseFiles} for:item="fileName">
+        <div key={fileName.key}> 
+          <lightning-icon icon-name="utility:success" alternative-text="Success!" variant="success"
+                          title="success variant x-small" size="x-small">
+          </lightning-icon> 
+          <span class="slds-p-left_xx-small btmAlign"> {fileName.value} Successfully Added <a href="javascript:void(0)" data-id={fileName.key} onclick={removeFile}>Remove</a>
+          </span> 
+        </div>
+      </template>
+      <p class="slds-text-link" onclick={handleMoreClick}>+ more
+      </p>
+    </div>
+    
+    <div if:false={isMultipleFilePresent}>
+      <template for:each={uploadedAllFiles} for:item="fileName">
+        <div key={fileName.key}> 
+          <lightning-icon icon-name="utility:success" alternative-text="Success!" variant="success"
+                          title="success variant x-small" size="x-small">
+          </lightning-icon> 
+          <span class="slds-p-left_xx-small btmAlign"> {fileName.value} Successfully Added <a href="javascript:void(0)" data-id={fileName.key} onclick={removeFile}>Remove</a>
+          </span> 
+        </div>
+      </template> 
+    </div>
+  </div>  
+</template>

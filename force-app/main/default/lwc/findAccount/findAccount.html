@@ -1,0 +1,75 @@
+<template>
+    <!-- <legend class="slds-form-element__legend slds-form-element__label slds-p-top_small">Search for the 9K,7k,6k account by name or SAP Account Number
+    </legend> -->
+    <lightning-card  title="Flow check" icon-name="standard:account">
+    <div class="slds-p-around_small">
+        <lightning-layout multiple-rows="true" vertical-align="end">
+			<lightning-layout-item size="10">
+				<lightning-input name="enter-search" label="Search for the 9K,7k,6k account by name or SAP Account Number" type="search"></lightning-input>
+			</lightning-layout-item>
+				<lightning-layout-item size="2">
+					<lightning-button class="buttonPadding" variant="brand" label="Search" title="Search" onclick={searchAccountJS}></lightning-button>
+				</lightning-layout-item>
+		</lightning-layout>
+    </div>
+     
+    <div class="slds-p-around_small">
+        <template if:true={isData}>
+            <lightning-datatable
+                    key-field="id"
+                    data={accounts}
+                    columns={columns}
+                    onrowselection={handleAcntSelection}
+					max-row-selection="1">
+            </lightning-datatable>
+        </template>
+        <template if:false={accounts}>
+            <p> No Data available with given search text </p>
+        </template>
+     </div>
+
+    <div class="slds-p-around_small">
+        <template if:true={displayContact}>
+            <h2 class = "header"> Select the active users asking the question</h2>
+            <lightning-input type="checkbox" label="Create New Contact" name="input1" onchange={handleCheckboxChange} checked={isContactCreatedChecked}></lightning-input>
+            
+            <div class="slds-p-around_xxx-small">
+                <template lwc:if ={isContactCreatedChecked}>
+                    <lightning-layout multiple-rows="true" vertical-align="end">
+			            <lightning-layout-item size="5">
+				            <lightning-input name="FirstName" label="First Name" type="text" onchange={handleChange} value={FirstName}></lightning-input>
+			            </lightning-layout-item>
+                        <lightning-layout-item size="0.5">
+                        </lightning-layout-item>
+				        <lightning-layout-item size="5">
+                            <lightning-input name="LastName" label="Last Name" type="text" onchange={handleChange} value={LastName}></lightning-input>
+				        </lightning-layout-item>
+                        <lightning-layout vertical-align="end">
+                            <lightning-layout-item size ="12">
+                                <lightning-input name="Email" label="Email" type="email" onchange={handleChange} value={Email}></lightning-input>
+                            </lightning-layout-item>
+                        </lightning-layout>
+		            </lightning-layout>
+                </template>
+                <template if:false = {isContactCreatedChecked}>
+                    <template if:true ={isConData}>
+                        <lightning-datatable
+                            key-field="id"
+                            data={contact}
+                            columns={cols}
+                            onrowaction={handleContactSelection}>
+                        </lightning-datatable>
+                    </template>
+                    
+                    <template if:false ={isConData}>
+                        <p> No data available for the selected contact </p>
+                    </template>
+                </template>
+            </div>
+        </template>
+    </div>
+</lightning-card>
+            
+
+
+</template>

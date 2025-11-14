@@ -1,0 +1,27 @@
+<template>
+    <template if:true ={isShowModal}>
+    <lightning-modal-header label="Access Management"></lightning-modal-header>
+    <lightning-modal-body> Access changes will be refelcted in GPOconnect after nightly EAP refresh.
+     <p>7k Scorecard checkbox 
+    <lightning-helptext content="By checking the box labeled 7K Scorecard Access, the selected contact will have high-level access to the 7k Scorecard regardless of the contact's account relationships."></lightning-helptext>
+     </p>
+
+            <template if:true={isShowModal}>
+            <lightning-datatable
+                data={data}
+                columns={columns}
+                key-field="id"
+                onrowselection={selectedAccountsJS}>            
+            </lightning-datatable>
+        </template>
+
+     </lightning-modal-body>
+
+    <lightning-modal-footer>
+        <lightning-button variant="brand" label="Save" onclick={handleClick} class="slds-m-left_x-small"></lightning-button>
+        
+        <lightning-button label="Cancel" onclick={closeModalHandler}></lightning-button>
+
+    </lightning-modal-footer>
+    </template>
+</template>

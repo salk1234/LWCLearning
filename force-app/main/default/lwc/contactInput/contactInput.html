@@ -1,0 +1,14 @@
+<template>
+    <lightning-layout class= "slds-grid_vertical-align-center">
+        <lightning-layout-item padding="around-small">
+            <div class="slds-p-around_medium">
+                    <lightning-input type="text" label="Enter some text" value={contactValue} onchange={handleChangeEvent} placeholder="text here..." required></lightning-input>
+            </div> 
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small">
+            <div class="slds-p-top_medium">
+                <lightning-button variant="brand" label="Send to Parent" title="Primary action" onclick={handleClick} class="slds-m-top-medium"></lightning-button>
+            </div>
+        </lightning-layout-item>
+    </lightning-layout>
+</template>

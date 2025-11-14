@@ -1,0 +1,56 @@
+<!--gpoAddNewDocument-->
+<template>
+	<!--Modal Popup-->
+	<template if:true={showModal}>
+		<section class="slds-modal slds-fade-in-open slds-modal_medium" aria-modal="true">
+			<div class="slds-modal__container">
+				<div class="slds-modal__header">
+					<h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Access Management</h1> 
+				</div>
+				<div class="slds-modal__content slds-p-horizontal_large slds-p-vertical_medium modalBody">
+					<!--Spinner-->
+					<div if:true={isLoading} class="slds-is-relative">
+						<lightning-spinner alternative-text="Loading..." size="medium" variant="brand" class="spinnerClass"></lightning-spinner>
+					</div> 
+					<!--Spinner-->
+
+					<!--Search Type Text-->
+					<div class="searchTypeText">
+						<strong>Access changes will be reflected in GPOconnect after nightly EAP refresh</strong>
+					</div>
+					<!--Search Type Text-->
+
+					<!--Search Type Radio Buttons-->
+                   
+                   <lightning-input type="checkbox" label="7k Access" name="input1" field-level-help="By checking the box labeled 7K Scorecard Access, the selected contact will have high-level access to the 7k Scorecard regardless of the contact's account relationships."></lightning-input>
+
+					<template if:true={hasTemplates}>
+							<div class="slds-p-top_medium">
+								<template if:true={data}>
+								<lightning-datatable
+									data={data}
+									columns={columns}
+									key-field="id"
+									
+								>
+								</lightning-datatable>
+							</template>
+							<template if:true={error}>
+								{error}
+							</template>
+        			</div>
+					</template>
+			
+						<footer class="slds-modal__footer">
+					<lightning-button  variant="brand" label="Save" title="Add Document" onclick={addNewDocumentJS}></lightning-button>
+					&nbsp;&nbsp;
+					<lightning-button  label="Cancel"  onclick={closeModalHandler}></lightning-button>
+				</footer>
+						<!--Conga Template Search Result Table-->
+                         </div>
+                    </div>
+					
+                    </div>
+                        </section>
+					</template>
+</template>

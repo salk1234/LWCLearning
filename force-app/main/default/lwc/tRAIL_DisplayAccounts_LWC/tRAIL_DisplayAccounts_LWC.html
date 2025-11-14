@@ -1,0 +1,22 @@
+<template>
+    <lightning-card title="Display Accounts">
+        <div class="slds-p-around_medium">
+            <lightning-layout multiple-rows="true" vertical-align="end">
+                <lightning-layout-item size="10" >
+                    <lightning-input type="text" label="Search for Account" placeholder="type here..." value={searchText} onchange={handleChange} class="slds-m-right_x-small"></lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item size="2">
+                    <lightning-button variant="brand" label="Search" onclick={handleClick} disabled = {display_btn}></lightning-button>
+                </lightning-layout-item>
+            </lightning-layout>
+        </div>
+        <template lwc:if={display_data}>
+            <lightning-datatable
+                            key-field="id"
+                            data={data}
+                            columns={cols}
+                            hide-checkbox-column=true>
+            </lightning-datatable>            
+        </template>
+    </lightning-card>
+</template>

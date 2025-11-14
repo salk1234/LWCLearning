@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomTab xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Created by Lightning App Builder</description>
+    <flexiPage>Sanjay_Gupta_Tech_School_You_Tube</flexiPage>
+    <label>Sanjay Gupta Tech School - You Tube</label>
+    <motif>Custom75: IP Phone</motif>
+</CustomTab>
