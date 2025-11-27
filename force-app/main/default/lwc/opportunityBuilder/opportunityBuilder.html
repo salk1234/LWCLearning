@@ -2,7 +2,7 @@
   @description       : Opportunity Creation on Account Selection
   @author            : Thulluri Khyathi
   @group             : 
-  @last modified on  : 11-26-2025
+  @last modified on  : 11-27-2025
   @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 -->
 <template>
@@ -14,26 +14,26 @@
                                      matching-info={matchingInfo}
                                      placeholder="Search for Account"
                                      onchange={selectedAcntJs}
-                                     required=true>
+                                     required>
             </lightning-record-picker>                      
         </lightning-layout-item>
     </lightning-layout>
     <template lwc:if={displayOpportunity}>
             <lightning-layout class= "slds-grid_vertical-align-center">
                 <lightning-layout-item size="6" padding="around-small">
-                    <lightning-input type="text" label="Opportunity Name" name="OppoName" value={opportunityName} required onchange={handleChange}></lightning-input>
+                    <lightning-input type="text" label="Opportunity Name" name="opportunityName" value={opportunityName} onchange={handleChange} required></lightning-input>
                 </lightning-layout-item>
                 <lightning-layout-item size="6" padding="around-small">
-                        <lightning-input type="date" name="CloseDate" label="Close Date" value={closeDate} required onchange={handleChange}></lightning-input>
+                        <lightning-input type="date" name="closeDate" label="Close Date" value={closeDate} onchange={handleChange} required ></lightning-input>
                 </lightning-layout-item>
             </lightning-layout>
             <lightning-layout class= "slds-grid_vertical-align-center">
                 <lightning-layout-item size="6" padding="around-small">
-                    <lightning-combobox name="Stage" label="Stage" value={stageValue} options={options} required onchange={handleChange}></lightning-combobox>
+                    <lightning-combobox name="stageValue" label="Stage" value={stageValue} options={options} required onchange={handleChange}></lightning-combobox>
                 </lightning-layout-item>
                 <lightning-layout-item size="6" padding="around-small">
-                    <lightning-input type="number" name="Amount" label="Amount" value={amount} onchange={handleChange}></lightning-input>
-                </lightning-layout-item>
+                    <lightning-input type="number" name="amount" label="Amount" value={amount} onchange={handleChange}></lightning-input>
+                </lightning-layout-item> 
             </lightning-layout>
     </template>
 </template>

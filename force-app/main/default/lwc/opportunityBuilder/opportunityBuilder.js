@@ -11,12 +11,12 @@ export default class OpportunityBuilder extends LightningElement {
     account;
     selectedAcnt;
     displayProducts;
-    opportunityName;
-    closeDate;
-    stageValue;
-    amount;
+    opportunityName =''
+    closeDate='';
+    stageValue='';
+    amount='';
 
-     matchingInfo={
+    matchingInfo={
         primaryField:{fieldPath:'Name',mode:'contains'},
         additionalFields:[{fieldPath:'Phone'}],
     }
@@ -32,13 +32,15 @@ export default class OpportunityBuilder extends LightningElement {
         console.log('Selected Account Id>>',this.selectedAcnt);
     }
 
-    @wire(getRecord,{recordId:'$selectedAcnt',fields:[NAME_FIELD]})
+     @wire(getRecord,{recordId:'$selectedAcnt',fields:[NAME_FIELD]})
     accountInfo({data,error}){
         console.log('At line 30>>');
         if(data){
             this.account=data;
             console.log('this.account>>',this.account);
-            this.opportunityName = this.account?.fields?.Name?.value + '-' + new Date().getFullYear();
+            if(!this.opportunityName){
+                this.opportunityName = this.account?.fields?.Name?.value + '-' + new Date().getFullYear();
+            }
         }
         else if(error){
             console.error('Error in fetching account data',error);
@@ -66,9 +68,6 @@ export default class OpportunityBuilder extends LightningElement {
         }
     }
 
-    /*get opportunityName(){
-        return this.account?.fields?.Name?.value+'-'+new Date().getFullYear();
-    }*/
 
     get options() {
         return this.stageOptions
@@ -80,48 +79,19 @@ export default class OpportunityBuilder extends LightningElement {
     }
 
     handleChange(event){
-        try{
-            console.log('onchange event>>',event.target.name, event.target.value);
-        }catch(err){
-            console.error('Error in onchange handler>>',err);   
+        console.log('this.opportunityName>>',this.opportunityName);
+        this[event.target.name] = event.target.value;
+        if(this.closeDate && this.stageValue && this.amount && this.opportunityName && this.selectedAcnt){
+            const complEvt = new CustomEvent('update',{
+                detail:{
+                    closeDate:this.closeDate,
+                    stageName:this.stageValue,
+                    amount:this.amount,
+                    oppoName:this.opportunityName,
+                    selectedAcntId:this.selectedAcnt
+                }
+            });
+            this.dispatchEvent(complEvt);
         }
-    }
-
-
-    /*handleChange(event){
-        console.log('onchange event>>',event.target.name, event.target.value);
-        if(event.target.name === 'CloseDate'){
-            this.closeDate = event.target.value;
-        }
-        else if(event.target.name === 'Stage'){
-            this.stageValue = event.target.value;
-        }
-        else if(event.target.name === 'Amount'){
-            this.amount = event.target.amount;
-        }
-        else if(event.target.name === 'OppoName'){
-            this.opportunityName = event.target.value;
-        }
-
-        const evt = new CustomEvent('change',{
-            detail:{
-                closeDate:this.closeDate,
-                stageName:this.stageValue,
-                amount:this.amount,
-                oppoName:this.opportunityName,
-                selectedAcntId:this.selectedAcnt
-            }
-        });
-        this.dispatchEvent(evt);
-    }  */
-
-    handleClose(){
-        console.log('Close event from child');
-        const evt = new CustomEvent('close',{
-            detail:{
-                message:'modal closed'
-    }});
-        this.dispatchEvent(evt);
-    }  
-
+    } 
 }
