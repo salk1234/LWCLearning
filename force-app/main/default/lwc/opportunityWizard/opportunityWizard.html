@@ -2,7 +2,7 @@
   @description       : 
   @author            : ChangeMeIn@UserSettingsUnder.SFDoc
   @group             : 
-  @last modified on  : 11-17-2025
+  @last modified on  : 11-27-2025
   @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 -->
 <template>
@@ -18,7 +18,10 @@
             </lightning-progress-indicator>
         </div>
         <template lwc:if={displayOppoPage}>
-            <c-opportunity-builder onchange={handleChange}></c-opportunity-builder>
+            <c-opportunity-builder onupdate={handleChange}></c-opportunity-builder>
+        </template>
+        <template lwc:if={displayProdPage}>
+            <c-product-selection></c-product-selection>
         </template>
          <p slot="footer">
             <lightning-button class="slds-p-around_medium" variant="neutral" label="Previous" onclick={previousPage}></lightning-button>
