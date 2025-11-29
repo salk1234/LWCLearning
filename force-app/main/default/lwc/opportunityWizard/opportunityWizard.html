@@ -2,14 +2,12 @@
   @description       : 
   @author            : ChangeMeIn@UserSettingsUnder.SFDoc
   @group             : 
-  @last modified on  : 11-27-2025
+  @last modified on  : 11-29-2025
   @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 -->
 <template>
     <lightning-card title="Opportunity Wizard" icon-name="standard:opportunity">
-<!--         <lightning-button label="Create New Opportunity" onclick={handleClick} slot="actions"></lightning-button>
- -->        <div class="slds-p-around_medium">
-            <p class="slds-p-horizontal_small">WAY TO CREATE OPPORTUNITIES AND RELATED PRODUCTS.</p>
+        <div class="slds-p-around_medium">
             <lightning-progress-indicator current-step={stepDetails} type="base" has-error={errorValidation} variant="base">
                 <lightning-progress-step label="Step 1" value="1"></lightning-progress-step>
                 <lightning-progress-step label="Step 2" value="2"></lightning-progress-step>
@@ -22,7 +20,8 @@
         </template>
         <template lwc:if={displayProdPage}>
             <c-product-selection></c-product-selection>
-        </template>
+        </template> 
+         
          <p slot="footer">
             <lightning-button class="slds-p-around_medium" variant="neutral" label="Previous" onclick={previousPage}></lightning-button>
             <lightning-button class="slds-p-around_medium" variant="brand" label="Next" onclick={nextPage1} disabled={disableNext}></lightning-button>

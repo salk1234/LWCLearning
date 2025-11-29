@@ -79,7 +79,6 @@ export default class OpportunityBuilder extends LightningElement {
     }
 
     handleChange(event){
-        console.log('this.opportunityName>>',this.opportunityName);
         this[event.target.name] = event.target.value;
         if(this.closeDate && this.stageValue && this.amount && this.opportunityName && this.selectedAcnt){
             const complEvt = new CustomEvent('update',{
