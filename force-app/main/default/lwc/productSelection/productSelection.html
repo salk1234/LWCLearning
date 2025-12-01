@@ -1,3 +1,37 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 11-29-2025
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
 <template>
-    
+  <div class="slds-p-around_medium" onkeyup={handleKeyUp}>
+        <lightning-input
+            name="ProductSearch"
+            valaue={searchTerm}
+            label="Products"
+            placeholder="Search for Products"
+            type="search"
+        ></lightning-input>
+    </div>
+    <div class="slds-p-around_medium">
+    <template lwc:if={displayProducts}>
+      <a onclick={getSelectedRows}>Show Selected Products</a>
+      <lightning-datatable
+        key-field="Id"
+        data={data}
+        columns={cols}
+        onrowselection={getSelectedProducts}>
+      </lightning-datatable>
+    </template>
+    <template lwc:if={displaySelectedRows}>
+      <lightning-datatable
+          key-field="Id"
+          data={selectedRows}
+          columns={cols}>
+      </lightning-datatable>
+    </template>
+  </div>
+   
 </template>

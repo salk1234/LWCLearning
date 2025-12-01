@@ -7,8 +7,9 @@ export default class OpportunityWizard extends LightningElement {
     closeDate;
     Stage;
     Amount;
-    stepDetails =1;
+    stepDetails="1";
     errorValidation=false;
+    displayProdPage=false;
     
     /*handleClick() {
         this.stepDetails ='1'
@@ -21,9 +22,9 @@ export default class OpportunityWizard extends LightningElement {
     }
     nextPage1(){
        this.displayOppoPage=false;
-       this.stepDetails ='2';
+       this.stepDetails="2";
        this.displayProdPage=true;
-    }
+    } 
     handleChange(event){
         console.log('Event>',event.detail);
         this.closeDate = event.detail.closeDate;
