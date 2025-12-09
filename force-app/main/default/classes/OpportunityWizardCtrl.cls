@@ -2,13 +2,15 @@
  * @description       : 
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             : 
- * @last modified on  : 11-28-2025
+ * @last modified on  : 12-07-2025
  * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 **/
 public with sharing class OpportunityWizardCtrl {
     @AuraEnabled(cacheable=false)
-    public static List<PricebookEntry> getPriceBookEntries(){
-        List<PricebookEntry> pbEntries =[Select Id,UnitPrice,ProductCode,Product2.Name,Product2.Description from PricebookEntry WITH SECURITY_ENFORCED LIMIT 1000];
+    public static List<PricebookEntry> getPriceBookEntries(List<Id> prdIds){
+        System.debug('prdIds>>'+prdIds);
+        List<PricebookEntry> pbEntries =[Select Id,UnitPrice,ProductCode,Product2.Name,Product2.Description from PricebookEntry WHERE Id IN:prdIds WITH SECURITY_ENFORCED LIMIT 1000];
+        System.debug('pbEntries>>'+pbEntries);
         return pbEntries;
     }
     @AuraEnabled(cacheable=false)

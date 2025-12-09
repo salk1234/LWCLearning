@@ -2,7 +2,7 @@
   @description       : 
   @author            : ChangeMeIn@UserSettingsUnder.SFDoc
   @group             : 
-  @last modified on  : 11-29-2025
+  @last modified on  : 12-07-2025
   @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 -->
 <template>
@@ -14,21 +14,31 @@
             placeholder="Search for Products"
             type="search"
         ></lightning-input>
+
     </div>
     <div class="slds-p-around_medium">
     <template lwc:if={displayProducts}>
-      <a onclick={getSelectedRows}>Show Selected Products</a>
+      <div>
+        <span class="slds-p-around_medium"> <a onclick={getSelectedRows}>Selected Products:{count}</a></span>
+      </div>
+      <!-- <a onclick={getSelectedRows}>Show Selected Products</a>
+      <p><b>No. of Products Selected:{count}</b></p> -->
       <lightning-datatable
         key-field="Id"
         data={data}
         columns={cols}
-        onrowselection={getSelectedProducts}>
+        onrowselection={getSelectedProducts}
+        selected-rows={selectedRows}>
       </lightning-datatable>
+    
     </template>
+
     <template lwc:if={displaySelectedRows}>
+      <a onclick={getDisplayProducts}>Back to results</a>
       <lightning-datatable
           key-field="Id"
-          data={selectedRows}
+          data={selectedProducts}
+          selected-rows={selectedRows}
           columns={cols}>
       </lightning-datatable>
     </template>

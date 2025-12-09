@@ -1,0 +1,61 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 12-09-2025
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+    <!-- <lightning-datatable key-field="Id"
+                            data={data}
+                            columns={cols}>
+    </lightning-datatable>
+ -->
+    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+    <thead>
+        <tr class="slds-line-height_reset">
+            <th class="" scope="col">
+                <div title="Product Name">Product Name</div>
+            </th>
+            <th class="" scope="col">
+                <div title="Quantity">Quantity</div>
+            </th>
+            <th class="" scope="col">
+                <div title="Sales Price">Sales Price</div>
+            </th>
+            <th class="" scope="col">
+                <div title="Date">Discount</div>
+            </th>
+            <th class="" scope="col">
+                <div title="Description">LineTotal</div>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <template for:each={data} for:item="pb">
+            <tr key={pb.Id}>
+                <th scope="col">
+                    <div>{pb.ProductName}</div>
+                </th>
+                <th scope="col">
+                    <lightning-input data-id={pb.Id} type="number" name="Quantity" value={pb.Quantity} onkeyup={handleChange}></lightning-input>
+                    <div>{quantityError}</div>
+                </th>
+                <th scope="col">
+                    <lightning-input data-id={pb.Id} type="number" name="UnitPrice" value={pb.UnitPrice} onkeyup={handleChange}></lightning-input>
+                    <div>{unitPriceError}</div>
+                    <!-- <div>{pb.UnitPrice}</div> -->
+                </th>
+                <th scope="col">
+                     <lightning-input data-id={pb.Id} type="number" name="Discount" value={pb.Discount} onkeyup={handleChange}></lightning-input>
+                     <div class="slds-text-color_error">{discountError}</div>
+                </th>
+                <th scope="col">
+                    <lightning-input data-id={pb.Id} type="number" name="LineTotal" value={pb.LineTotal} disabled onkeyup={handleChange} ></lightning-input>
+<!--                     <div>{pb.Description}</div>
+ -->                </th>
+            </tr>
+        </template>
+    </tbody> 
+    </table>
+    </template>

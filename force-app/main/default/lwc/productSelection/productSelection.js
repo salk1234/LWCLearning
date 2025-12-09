@@ -1,5 +1,4 @@
 import { LightningElement, wire,api } from 'lwc';
-import getPriceBookEntries from '@salesforce/apex/OpportunityWizardCtrl.getPriceBookEntries';
 import fetchPriceBookEntries from '@salesforce/apex/OpportunityWizardCtrl.fetchPriceBookEntries';
 
  const COLUMNS =[
@@ -14,6 +13,8 @@ export default class ProductSelection extends LightningElement {
     searchKey ='';
     selectedRows=[];
     displayProducts;
+    selectedProducts=[];
+    @api count=0;
     connectedCallback(){
         this.displayProducts =true;
         this.fetchPriceBookEntriesJS();
@@ -43,11 +44,26 @@ export default class ProductSelection extends LightningElement {
         this.fetchPriceBookEntriesJS();
     }
     getSelectedProducts(event){
-        this.selectedRows = event.detail.selectedRows;
+        const selected = event.detail.selectedRows;
+        this.selectedProducts = selected;
+        this.count = selected.length;
+        this.selectedRows = selected.map(r => r.Id);
         console.log('Selected Rows are>>',this.selectedRows);
+
+        const msgEvt  = new CustomEvent('count',{
+            detail:{
+                count:this.count,
+                selectedRows:this.selectedRows
+            }
+        });
+        this.dispatchEvent(msgEvt);
     }
     getSelectedRows(){
         this.displayProducts = false;
         this.displaySelectedRows = true;
+    }
+    getDisplayProducts(){
+        this.displayProducts=true;
+        this.displaySelectedRows=false;
     }
 }
