@@ -2,7 +2,7 @@
   @description       : 
   @author            : ChangeMeIn@UserSettingsUnder.SFDoc
   @group             : 
-  @last modified on  : 11-29-2025
+  @last modified on  : 12-07-2025
   @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 -->
 <template>
@@ -19,8 +19,11 @@
             <c-opportunity-builder onupdate={handleChange}></c-opportunity-builder>
         </template>
         <template lwc:if={displayProdPage}>
-            <c-product-selection></c-product-selection>
+            <c-product-selection oncount={updatePrdCnt}></c-product-selection>
         </template> 
+        <template lwc:if={displaySelectedProd}>
+            <c-selected-products prd-ids={selectedProdIds}></c-selected-products> 
+        </template>
          
          <p slot="footer">
             <lightning-button class="slds-p-around_medium" variant="neutral" label="Previous" onclick={previousPage}></lightning-button>
