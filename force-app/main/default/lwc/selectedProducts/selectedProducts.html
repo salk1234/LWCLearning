@@ -2,7 +2,7 @@
   @description       : 
   @author            : ChangeMeIn@UserSettingsUnder.SFDoc
   @group             : 
-  @last modified on  : 12-09-2025
+  @last modified on  : 12-10-2025
   @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 -->
 <template>
@@ -52,10 +52,12 @@
                 </th>
                 <th scope="col">
                     <lightning-input data-id={pb.Id} type="number" name="LineTotal" value={pb.LineTotal} disabled onkeyup={handleChange} ></lightning-input>
-<!--                     <div>{pb.Description}</div>
- -->                </th>
+                </th>
             </tr>
-        </template>
+        </template>    
     </tbody> 
     </table>
+    <div class="slds-text-align_right slds-m-top_medium slds-m-right_medium">
+            <strong>Total Amount: {totalAmount}</strong>
+        </div>
     </template>

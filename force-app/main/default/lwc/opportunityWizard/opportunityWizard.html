@@ -2,7 +2,7 @@
   @description       : 
   @author            : ChangeMeIn@UserSettingsUnder.SFDoc
   @group             : 
-  @last modified on  : 12-07-2025
+  @last modified on  : 12-12-2025
   @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 -->
 <template>
@@ -22,12 +22,42 @@
             <c-product-selection oncount={updatePrdCnt}></c-product-selection>
         </template> 
         <template lwc:if={displaySelectedProd}>
-            <c-selected-products prd-ids={selectedProdIds}></c-selected-products> 
+            <c-selected-products prd-ids={selectedProdIds} onupdatedprds={updatedPriceEntry}></c-selected-products> 
+        </template>
+        <template lwc:if={displayDetails}>
+            <div>   </div>
+            <lightning-layout>
+                <lightning-layout-item size="6"    padding="around-small">
+                    <div class="slds-box slds-p-around_medium slds-text-align_center"><b>Opportunity Name: </b>{oppoName}</div>
+                </lightning-layout-item>
+                <lightning-layout-item size="6" padding="around-small">
+                    <div class="slds-box slds-p-around_medium slds-text-align_center"><b>Close Date:</b>{closeDate}</div>
+                </lightning-layout-item>
+            </lightning-layout>
+            <lightning-layout>
+                <lightning-layout-item size="6" padding="around-small" >
+                    <div class="slds-box slds-p-around_medium slds-text-align_center"><b>Stage Name: </b>{Stage}</div>
+                </lightning-layout-item>
+                <lightning-layout-item size="6" padding="around-small">
+                    <div class="slds-box slds-p-around_medium slds-text-align_center"><b>Amount:</b>{Amount}</div>
+                </lightning-layout-item>
+            </lightning-layout>
+            <lightning-datatable class="slds-text-align_center" 
+                            key-field="Id"
+                             data={priceBookEntries}
+                             columns={COLS}
+                             suppress-bottom-bar
+                             show-row-number-column
+                             hide-checkbox-column>
+            </lightning-datatable>
+            <div class="slds-text-align_right slds-m-top_medium slds-m-right_medium">
+                <b>Total Amount: </b> {totalAmount}
+            </div>
         </template>
          
          <p slot="footer">
             <lightning-button class="slds-p-around_medium" variant="neutral" label="Previous" onclick={previousPage}></lightning-button>
-            <lightning-button class="slds-p-around_medium" variant="brand" label="Next" onclick={nextPage1} disabled={disableNext}></lightning-button>
+            <lightning-button class="slds-p-around_medium" variant="brand" label={nxtLabelName} onclick={nextPage1} disabled={disableNext}></lightning-button>
          </p>
     </lightning-card>
 </template>
