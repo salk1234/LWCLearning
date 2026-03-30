@@ -11,13 +11,18 @@ export default class ProductSelection extends LightningElement {
     data=[];
     cols=COLUMNS;
     searchKey ='';
+    @api selectedRowsParent;
     selectedRows=[];
     displayProducts;
     selectedProducts=[];
     @api count=0;
+    hasRendered = false;
+
     connectedCallback(){
+        console.log('this.selectedRowsParent>>',this.selectedRowsParent);
         this.displayProducts =true;
         this.fetchPriceBookEntriesJS();
+        //this.selectedRows = this.selectedRowsParent;
     }
     fetchPriceBookEntriesJS(){
         fetchPriceBookEntries({searchTerm:this.searchKey})
@@ -36,6 +41,29 @@ export default class ProductSelection extends LightningElement {
             console.error('Error while calling fetchPRiceBookEntries>>',error);
         })
     }
+    renderedCallback() {
+
+        console.log('renderedCallback>>',this.data);
+        if (!this.hasRendered && this.data.length > 0) {
+            console.log('At lien 48');
+            this.hasRendered = true;
+            this.applyPreviousSelections();
+        }
+    }
+    applyPreviousSelections() {
+        if (this.selectedRowsParent && this.selectedRowsParent.length > 0) {
+            // Update internal state
+            this.selectedRows = [...this.selectedRowsParent];
+            this.count = this.selectedRows.length;
+            
+            // Find the full product records for selected IDs
+            this.selectedProducts = this.data.filter(product => 
+                this.selectedRowsParent.includes(product.Id)
+            );
+            
+        }
+    }
+
     handleKeyUp(evt) {
         const isEnterKey = evt.keyCode === 13;
         if (isEnterKey) {

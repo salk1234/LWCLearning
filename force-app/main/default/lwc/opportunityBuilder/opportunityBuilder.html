@@ -2,7 +2,7 @@
   @description       : Opportunity Creation on Account Selection
   @author            : Thulluri Khyathi
   @group             : 
-  @last modified on  : 11-27-2025
+  @last modified on  : 03-25-2026
   @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 -->
 <template>
@@ -14,6 +14,7 @@
                                      matching-info={matchingInfo}
                                      placeholder="Search for Account"
                                      onchange={selectedAcntJs}
+                                     value={selectedAcnt}
                                      required>
             </lightning-record-picker>                      
         </lightning-layout-item>
