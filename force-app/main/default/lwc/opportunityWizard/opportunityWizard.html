@@ -2,7 +2,7 @@
   @description       : 
   @author            : ChangeMeIn@UserSettingsUnder.SFDoc
   @group             : 
-  @last modified on  : 12-12-2025
+  @last modified on  : 03-30-2026
   @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 -->
 <template>
@@ -16,13 +16,21 @@
             </lightning-progress-indicator>
         </div>
         <template lwc:if={displayOppoPage}>
-            <c-opportunity-builder onupdate={handleChange}></c-opportunity-builder>
+            <c-opportunity-builder onupdate={handleChange}
+                                    opportunity-name={oppoName}
+                                close-date={closeDate}
+                                stage-value={Stage}
+                                amount={Amount}
+                                selected-acnt={selectAcntId}
+                                display-opportunity={displayOppoDetails}></c-opportunity-builder>
         </template>
         <template lwc:if={displayProdPage}>
-            <c-product-selection oncount={updatePrdCnt}></c-product-selection>
+            <c-product-selection oncount={updatePrdCnt}
+                                 count={count}
+                                 selected-rows-parent={selectedProdIds}></c-product-selection>
         </template> 
         <template lwc:if={displaySelectedProd}>
-            <c-selected-products prd-ids={selectedProdIds} onupdatedprds={updatedPriceEntry}></c-selected-products> 
+            <c-selected-products prd-ids={selectedProdIds} onupdatedprds={updatedPriceEntry} previous-data={priceBookEntries}></c-selected-products> 
         </template>
         <template lwc:if={displayDetails}>
             <div>   </div>

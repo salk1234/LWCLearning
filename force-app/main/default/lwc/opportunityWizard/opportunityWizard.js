@@ -7,7 +7,7 @@ const COLUMNS =[
     {label:'Product Name',fieldName:'ProductName',type:'text'},
     {label:'Quantity',fieldName:'Quantity',type:'number'},
     {label:'Sales Price',fieldName:'UnitPrice',type:'currency'},
-    {label:'Discount',fieldName:'Discount',type:'date'},
+    {label:'Discount',fieldName:'Discount',type:'Percent'},
     {label:'Line Total',fieldName:'LineTotal',type:'text'}
 ]
 
@@ -30,38 +30,61 @@ export default class OpportunityWizard extends LightningElement {
     COLS = COLUMNS;
     totalAmount;
     nxtLabelName = 'Next';
+    displayOppoDetails=false;
     
  
     get disableNext(){
         if(this.stepDetails==="1"){
             return !(this.selectAcntId && this.closeDate && this.Stage && this.Amount && this.oppoName);  
         }
-        if(this.stepDetails==="2"){
+        else if(this.stepDetails==="2"){
             /* const child = this.template.querySelector('c-product-selection');
             this.prdCount = child?.count??0; */
             return this.prdCount == 0;
             // return this.template.querySelector('c-product-selection')?.count??0;
         }
-        if(this.stepDetails==="3"){
+        else if(this.stepDetails==="3"){
             return !this.enableNext3;
         }
     }
-    nextPage1(){
-       this.displayOppoPage=false;
-       this.stepDetails="2";
-       this.displayProdPage=true;
-       if(this.stepDetails==="2" && this.prdCount>0 ){
+    previousPage(){
+        if(this.stepDetails==="2"){
+            this.stepDetails = "1";
+            this.displayOppoPage=true;
+            this.displayOppoDetails = true;
+            this.displayProdPage=false;
+        }
+        else if(this.stepDetails==="3"){
+            this.stepDetails="2";
+            this.displayProdPage=true;
+            this.displaySelectedProd=false;
+        }
+        else if(this.stepDetails==="4"){
+            this.displayDetails=false;
+            this.displaySelectedProd=true;
             this.stepDetails="3";
+            this.nxtLabelName = 'Next';
+        }
+    }
+    nextPage1(){
+        console.log('this.stepDetails>>',this.stepDetails);
+        if(this.stepDetails==="1"){
+            this.displayOppoPage=false;
+            this.stepDetails="2";
+            this.displayProdPage=true;
+        }
+       else if(this.stepDetails==="2"){
+           this.stepDetails="3";
            this.displayProdPage=false;
            this.displaySelectedProd=true;
        }
-       if(this.stepDetails==="3" && this.enableNext3){
+       else if(this.stepDetails==="3"){
             this.stepDetails="4";
             this.nxtLabelName ="Save"
             this.displaySelectedProd=false;
             this.displayDetails=true;
         }
-        if(this.stepDetails === "4"){
+        else if(this.stepDetails === "4"){
             this.createOpportunityJs();
         }
     } 
@@ -115,6 +138,7 @@ export default class OpportunityWizard extends LightningElement {
     updatePrdCnt(event){
         this.prdCount = event.detail.count;
         this.selectedProdIds = event.detail.selectedRows;
+        console.log('selectedProdIds>>',this.selectedProdIds);
     }
     updatedPriceEntry(event){
         this.enableNext3 = event.detail.message;

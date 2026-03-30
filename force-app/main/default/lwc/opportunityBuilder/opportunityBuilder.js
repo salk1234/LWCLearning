@@ -1,20 +1,20 @@
-import { LightningElement,wire } from 'lwc';
+import { LightningElement,wire,api } from 'lwc';
 import {getRecord} from 'lightning/uiRecordApi';
 import {getPicklistValues,getObjectInfo} from 'lightning/uiObjectInfoApi';
 import NAME_FIELD from '@salesforce/schema/Account.Name';
 import STAGE_FIELD from '@salesforce/schema/Opportunity.StageName';
 
 export default class OpportunityBuilder extends LightningElement {
-    displayOpportunity;
     defaultRecordTypeId;
     stageOptions;
     account;
-    selectedAcnt;
+    @api selectedAcnt;
     displayProducts;
-    opportunityName =''
-    closeDate='';
-    stageValue='';
-    amount='';
+    @api displayOpportunity;
+    @api opportunityName ='';
+    @api closeDate='';
+    @api stageValue='';
+    @api amount='';
 
     matchingInfo={
         primaryField:{fieldPath:'Name',mode:'contains'},
@@ -70,6 +70,9 @@ export default class OpportunityBuilder extends LightningElement {
 
 
     get options() {
+        if (!this.stageOptions) {
+            return [];
+        }
         return this.stageOptions
             .filter(record => record.label !== 'Closed Won' && record.label !== 'Closed Lost')
             .map(record => ({

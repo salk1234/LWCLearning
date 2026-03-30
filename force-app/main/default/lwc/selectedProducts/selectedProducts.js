@@ -11,6 +11,7 @@ const COLUMNS=[
 
 export default class SelectedProducts extends LightningElement {
     @api prdIds;
+    @api previousData;
     updatedData=[];
     data=[];
     cols=COLUMNS;
@@ -20,6 +21,7 @@ export default class SelectedProducts extends LightningElement {
     totalAmount=0;
     updatedPbData =[];
     count;
+    hasRendered = false;
 
     connectedCallback(){
         this.fetchSelectedProducts();
@@ -41,6 +43,26 @@ export default class SelectedProducts extends LightningElement {
             console.error('Error while fetching selected products>>',error);
         })
     }
+
+    renderedCallback(){
+        if (!this.hasRendered && this.data.length > 0) {
+            this.hasRendered = true;
+            this.applyPreviousData();
+        }
+    }
+    applyPreviousData(){
+        if(this.previousData && this.previousData.length>0){
+            const updatedData = this.data.map(product=>{
+                const prevRecord = this.previousData.find(prev=>prev.Id === product.Id);
+                return prevRecord?{...product,...prevRecord}:product;
+            });
+            this.data = updatedData;
+            this.totalAmount = this.data.reduce((sum,row)=>{
+                return sum + (Number(row.LineTotal)||0);
+            },0);
+        }
+    }
+
     handleChange(event){
         const inputEle1 = event.target;
         const pbId = inputEle1.dataset.id;
