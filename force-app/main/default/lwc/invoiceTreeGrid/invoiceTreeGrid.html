@@ -1,0 +1,49 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 04-05-2026
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+    <lightning-card title="Invoice Tree Grid" icon-name="standard:invoice">
+        <template lwc:if={isLoading}>
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </template>
+            <ul class="slds-accordion">
+                <template for:each={data} for:item="item">
+                    <li key={item.Id} class="slds-accordion__list-item slds-p-left_medium">
+                        <div class="slds-p-around_x-small">
+                           <lightning-icon
+                                icon-name={item.iconName}
+                                data-id={item.Id}
+                                size="x-small"
+                                class="slds-button slds-accordion__summary-action"
+                                onclick={handleClickJs}
+                            ></lightning-icon>
+                            <span class="slds-truncate">{item.Name}</span>
+                    </div>
+                        <template if:true={item.isExpanded}>
+                            <ul class="slds-accordion slds-p-left_medium">
+                                <template for:each={item.children} for:item="child">
+                                    <li key={child.Id} class="slds-accordion__list-item slds-p-left_medium">
+                                        <div class="slds-p-around_x-small">
+                                        <span class="slds-truncate">{child.Name}</span>
+                                        </div>
+                                    </li>
+                                </template>
+                                <template lwc:if={item.isDisplayViewMore}>
+                                    <div class="slds-text-align_center">
+                                        <lightning-button data-id={item.Id} variant="base" label="View More" title="Looks like a link" onclick={handleLoadMore}></lightning-button>
+                                    </div>
+                                </template>
+                            </ul>
+                        </template>
+                        <template lwc:if={item.displayMessage}> 
+                                <p>No contacts to display for this account.</p>
+                        </template>
+                    </li>
+                </template>
+            </ul>
+        </lightning-card>         
+</template>
