@@ -1,3 +1,10 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 04-05-2026
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
 <template>
     <lightning-card class="slds-m-around_medium" title="Dynamic Contact Viewer">
         <lightning-combobox class="slds-p-around_medium"
@@ -23,11 +30,11 @@
             </lightning-layout>
         </template>
         
-        <template class="slds-p-around_medium" lwc:if={isLoading}>
+        <template  lwc:if={isLoading}>
             <lightning-spinner alternative-text="Loading" size="x-small"></lightning-spinner>
         </template>
         
-        <template lwc:if={displayDatatable} class="slds-p-around_medium" >
+        <template lwc:if={displayDatatable}  >
             <lightning-datatable
                     key-field="Id"
                     data={data}
@@ -36,7 +43,7 @@
                     onsave={handleSave}>
             </lightning-datatable>
         </template>
-        <template lwc:if={displayMessage} class="slds-p-around_medium">
+        <template lwc:if={displayMessage} >
             <p class="slds-p-around_medium">No contacts are available on selected account.</p>
         </template>
     </lightning-card>
